@@ -3,20 +3,20 @@ library(dplyr)
 library(xlsx)
 
 #set directory containing needed data ####
-setwd("~/Box Sync/lela_class_schedule/")
-
-#grab student and schedule data as two separate data frames (tables) ####
-student_data = read.xlsx2(file = "student_schedule_10_blank.xlsx",
-                          sheetName = "student_data",
-                          stringsAsFactors = F)
-schedule_data = read.xlsx2(file = "student_schedule_10_blank.xlsx",
-                           sheetName = "schedule_data",
-                           stringsAsFactors = F)
-paired_sections = read.xlsx2(file = "student_schedule_10_blank.xlsx",
-                             sheetName = "paired_sections",
-                             stringsAsFactors = F)
-
-section_capacity = 35
+# setwd("~/Box Sync/lela_class_schedule/")
+# 
+# #grab student and schedule data as two separate data frames (tables) ####
+# student_data = read.xlsx2(file = "student_schedule_10_blank.xlsx",
+#                           sheetName = "student_data",
+#                           stringsAsFactors = F)
+# schedule_data = read.xlsx2(file = "student_schedule_10_blank.xlsx",
+#                            sheetName = "schedule_data",
+#                            stringsAsFactors = F)
+# paired_sections = read.xlsx2(file = "student_schedule_10_blank.xlsx",
+#                              sheetName = "paired_sections",
+#                              stringsAsFactors = F)
+# 
+# section_capacity = 35
 scheduler_10 <- function(student_data_var, schedule_data_var, paired_sections_var, section_capacity = 35) {
 # summarize the schedule order by number of sections, ####
 # this will inform the order of assignment starting from fewest to most
@@ -80,7 +80,7 @@ student_period_df$section_id <- 0
 student_period_df$period <- as.character(student_period_df$period)
 student_period_df$period <- as.numeric(student_period_df$period)
 for (i in 1:nrow(schedule_order)) {
-  Sys.sleep('0.1')
+ # Sys.sleep('0.1')
   subject_out =  schedule_data %>% filter(class %in% schedule_order$class[i]) %>% select(subject)
   subject_out = max(subject_out$subject)
   student_without_this_subject = student_subject_df  %>% filter(subject == subject_out) %>% filter(section_id == 0) %>% select(student_id)
@@ -125,7 +125,7 @@ for (i in 1:nrow(schedule_order)) {
   
   # round robin through the students ordered by student performance ####
   for (j in 1:length(student_list)) {
-    Sys.sleep('0.1')
+    #Sys.sleep('0.1')
     
     section_list <- #grab the sections with capacity
       schedule_data %>% filter(class == schedule_order$class[i])  %>%
@@ -386,18 +386,18 @@ student_out
 }
 
 
-
-student_out = scheduler_10(student_data_var = student_data, 
-                           schedule_data_var = schedule_data, 
-                           paired_sections_var = paired_sections, 
-                           section_capacity = 35)
-
-
-names(student_out)[[1]]
-write.xlsx2(student_schedule_out, file = "student_schedule_out.xlsx", row.names = F, sheetName = "student_schedule_out", append = F)
-
-write.xlsx2(student_data, file = "student_schedule_out.xlsx", row.names = F, sheetName = "student_data", append = T)
-
-write.xlsx2(schedule_data, file = "student_schedule_out.xlsx", row.names = F, sheetName = "schedule_data", append = T)
-
-write.xlsx2(paired_sections, file = "student_schedule_out.xlsx", row.names = F, sheetName = "paired_sections", append = T)
+# 
+# student_out = scheduler_10(student_data_var = student_data, 
+#                            schedule_data_var = schedule_data, 
+#                            paired_sections_var = paired_sections, 
+#                            section_capacity = 35)
+# 
+# 
+# names(student_out)[[1]]
+# write.xlsx2(student_schedule_out, file = "student_schedule_out.xlsx", row.names = F, sheetName = "student_schedule_out", append = F)
+# 
+# write.xlsx2(student_data, file = "student_schedule_out.xlsx", row.names = F, sheetName = "student_data", append = T)
+# 
+# write.xlsx2(schedule_data, file = "student_schedule_out.xlsx", row.names = F, sheetName = "schedule_data", append = T)
+# 
+# write.xlsx2(paired_sections, file = "student_schedule_out.xlsx", row.names = F, sheetName = "paired_sections", append = T)
