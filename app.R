@@ -34,20 +34,17 @@ ui = fluidPage(
           though it may work for other schools/grades. No promises...'
         )
         ),
-      br(),
-      
-      
+     
       h5('Step 1: Create an Excel file with student and scheduling data'),
       
       helpText(
         'Hey! This app requires an excel (xls or xlsx) file. See the link in the directions to the right for an example file.'
       ),
-      # checkboxInput(inputId = 'dataheader',label = 'Yes',value = TRUE),
-      br(),
+      
       h5('Step 2: Upload the  file you just created'),
       
       fileInput(inputId = 'datafile', label = ''),
-      uiOutput('worksheets'),
+      
       
       h5('Step 3: Run the Student Scheduling Algorithm'),
      
@@ -59,10 +56,6 @@ ui = fluidPage(
         )
       ,
     
-      br(),
-      br(),
-      
-      
       h5('Step 4: Download the data'),
       # radioButtons(inputId = 'outputformat',
       #              label = 'In what format would you like to download the data?',
@@ -74,6 +67,11 @@ ui = fluidPage(
       #textOutput('testing'),
       br(),
       h4('How should I use this web app?'),
+      conditionalPanel(condition="$('html').hasClass('shiny-busy') && input.runscheduler > 0",
+                       h4("I am now scheduling students. Please sit 
+                         tight for about 2 minutes until this little circle of algorithmic lovin' disappears, 
+                          then you can click the download button to the left in step 4..."),
+                       tags$img(src="loading_circle.gif")),
       p(
         strong('Step 1:'),
         'Using the example file in the link at the bottom of these instructions, create a file that contains
@@ -128,14 +126,9 @@ ui = fluidPage(
         
         alt = 'Link to public Dropbox account with test files',
         target = '_blank'
-      ),
-      br(),
-      br(),
-      conditionalPanel(condition="$('html').hasClass('shiny-busy')",
-                       h4('I am now scheduling students. Please sit 
-                         tight for about 2 minutes until this cool circle disappears, then you can click the download button to the left...'),
-                       tags$img(src="loading_circle.gif")
-      )#, 
+      )
+    
+      #, 
       # uiOutput('errortext'),
       # 
       # tabsetPanel(
