@@ -66,12 +66,13 @@ ui = fluidPage(
     mainPanel(
       #textOutput('testing'),
       br(),
-      h4('How should I use this web app?'),
       conditionalPanel(condition="$('html').hasClass('shiny-busy') && input.runscheduler > 0",
                        h4("I am now scheduling students. Please sit 
-                         tight for about 2 minutes until this little circle of algorithmic lovin' disappears, 
+                         tight for about 1-2 minutes until this little circle of algorithmic lovin' disappears, 
                           then you can click the download button to the left in step 4..."),
                        tags$img(src="loading_circle.gif")),
+      h4('How should I use this web app?'),
+     
       p(
         strong('Step 1:'),
         'Using the example file in the link at the bottom of these instructions, create a file that contains
